@@ -59,19 +59,19 @@
 
         left_layer {
             bindings = <
-&trans  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp BSPC
-&trans  &trans    &trans  &trans    &trans    &trans       &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
-&trans  &trans    &trans  &trans    &trans    &trans       &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
-                          &trans    &trans    &trans       &trans     &trans     &trans
+&trans   &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp BSPC
+&kp DEL  &trans    &trans  &trans    &trans    &trans       &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT  &kp BSLH  &kp GRAVE
+&trans   &trans    &trans  &trans    &trans    &trans       &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC  &kp PIPE  &kp TILDE
+                           &trans    &trans    &trans       &trans     &trans     &trans
             >;
         };
 
         right_layer {
             bindings = <
-&trans  &kp N1     &kp N2          &kp N3          &kp N4           &kp N5       &kp N6           &kp N7    &kp N8    &kp N9     &kp N0     &trans
-&trans  &kp LC(X)  &mkp LCLK       &mmv MOVE_UP    &mkp RCLK        &kp LC(C)    &kp PRINTSCREEN  &kp LEFT  &kp UP    &kp RIGHT  &kp PG_UP  &trans
-&trans  &kp LC(Z)  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &kp LC(V)    &kp INSERT       &kp HOME  &kp DOWN  &kp END    &kp PG_DN  &trans
-                                   &trans          &trans           &trans       &trans           &trans    &trans
+&trans   &kp N1     &kp N2          &kp N3          &kp N4           &kp N5       &kp N6           &kp N7    &kp N8    &kp N9     &kp N0     &trans
+&kp DEL  &kp LC(X)  &mkp LCLK       &mmv MOVE_UP    &mkp RCLK        &kp LC(C)    &kp PRINTSCREEN  &kp LEFT  &kp UP    &kp RIGHT  &kp PG_UP  &trans
+&trans   &kp LC(Z)  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &kp LC(V)    &kp INSERT       &kp HOME  &kp DOWN  &kp END    &kp PG_DN  &trans
+                                    &trans          &trans           &trans       &trans           &trans    &trans
             >;
         };
 
