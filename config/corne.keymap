@@ -10,7 +10,6 @@
 #include <dt-bindings/zmk/pointing.h>
 
 // Home row mods macro
-
 //#define HRML(k2,k3,k4) &ht LALT k2  &ht LCTRL k3  &ht LGUI k4
 //#define HRMR(k1,k2,k3) &ht RGUI k1  &ht RCTRL k2  &ht RALT k3
 //#define WHRML(k2,k3,k4) &ht LALT k2  &ht LGUI k3  &ht LCTRL k4
@@ -22,41 +21,41 @@
 #define WHRMR(k1, k2, k3, _layer) &hml RCTRL k1 _layer  &ht RGUI k2  &ht RALT k3
 
 / {
-//    behaviors {
-//        ht: hold_tap {
-//            label = "hold_tap";
-//            compatible = "zmk,behavior-hold-tap";
-//            #binding-cells = <2>;
-//            flavor = "tap-preferred";
-//            tapping-term-ms = <220>;
-//            quick-tap-ms = <150>;
-//            global-quick-tap;
-//            bindings = <&kp>, <&kp>;
-//        };
-//    };
+    //    behaviors {
+    //        ht: hold_tap {
+    //            label = "hold_tap";
+    //            compatible = "zmk,behavior-hold-tap";
+    //            #binding-cells = <2>;
+    //            flavor = "tap-preferred";
+    //            tapping-term-ms = <220>;
+    //            quick-tap-ms = <150>;
+    //            global-quick-tap;
+    //            bindings = <&kp>, <&kp>;
+    //        };
+    //    };
 
-behaviors {
-    ht: hold_tap {
-        label = "hold_tap";
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>; // 2 аргумента: (модификатор, клавиша)
-        flavor = "tap-preferred";
-        tapping-term-ms = <220>;
-        quick-tap-ms = <150>;
-        global-quick-tap;
-        bindings = <&kp>, <&kp>;
-    };
+    behaviors {
+        ht: hold_tap {
+            label = "hold_tap";
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>; // 2 аргумента: (модификатор, клавиша)
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <150>;
+            global-quick-tap;
+            bindings = <&kp>, <&kp>;
+        };
 
-    hml: hold_mod_layer {
-        compatible = "zmk,behavior-hold-mod-layer";
-        #binding-cells = <3>; // 3 аргумента: (модификатор, клавиша, слой)
-        label = "HOLD_MOD_LAYER";
-        flavor = "tap-preferred";
-        tapping-term-ms = <220>; // Синхронизировано с ht
-        quick-tap-ms = <150>;
-        global-quick-tap;
+        hml: hold_mod_layer {
+            compatible = "zmk,behavior-hold-mod-layer";
+            #binding-cells = <3>; // 3 аргумента: (модификатор, клавиша, слой)
+            label = "HOLD_MOD_LAYER";
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>; // Синхронизировано с ht
+            quick-tap-ms = <150>;
+            global-quick-tap;
+        };
     };
-};
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
@@ -110,6 +109,51 @@ behaviors {
 &trans  &kp F5  &kp F6   &kp F7   &kp F8   &bt BT_SEL 1    &kp C_MUTE    &kp C_BRI_UP    &trans            &trans      &to 0   &trans
 &trans  &kp F9  &kp F10  &kp F11  &kp F12  &bt BT_CLR      &kp C_VOL_DN  &kp C_BRI_DEC   &trans            &trans      &trans  &trans
                          &trans   &trans   &trans          &trans        &trans          &trans
+            >;
+        };
+
+        layer_4 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
+            >;
+        };
+
+        layer_5 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
+            >;
+        };
+
+        layer_6 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
+            >;
+        };
+
+        layer_7 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
+            >;
+        };
+
+        layer_8 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
     };
