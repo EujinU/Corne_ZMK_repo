@@ -66,7 +66,7 @@
             bindings = <
                 &macro_tap &kp LSHFT
                 &macro_tap &kp LCTRL
-                &macro_wait_for 10
+                &macro_pause 10
                 &macro_release &kp LCTRL
                 &macro_release &kp LSHFT
                 &macro_tap &to 3
