@@ -35,17 +35,28 @@
 //        };
 //    };
 
-    behaviors {
-        hml: hold_mod_layer {
-            compatible = "zmk,behavior-hold-mod-layer";
-            #binding-cells = <3>; // Важно: 3 аргумента (модификатор, тап, слой)
-            label = "HOLD_MOD_LAYER";
-            flavor = "tap-preferred";
-            tapping-term-ms = <220>; // Должен совпадать с ht для единообразия
-            quick-tap-ms = <150>;
-            global-quick-tap;
-        };
+behaviors {
+    ht: hold_tap {
+        label = "hold_tap";
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>; // 2 аргумента: (модификатор, клавиша)
+        flavor = "tap-preferred";
+        tapping-term-ms = <220>;
+        quick-tap-ms = <150>;
+        global-quick-tap;
+        bindings = <&kp>, <&kp>;
     };
+
+    hml: hold_mod_layer {
+        compatible = "zmk,behavior-hold-mod-layer";
+        #binding-cells = <3>; // 3 аргумента: (модификатор, клавиша, слой)
+        label = "HOLD_MOD_LAYER";
+        flavor = "tap-preferred";
+        tapping-term-ms = <220>; // Синхронизировано с ht
+        quick-tap-ms = <150>;
+        global-quick-tap;
+    };
+};
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
