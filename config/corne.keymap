@@ -170,7 +170,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-            &trans  &trans  &switch_to_layer_3    &trans  &trans  &trans
+            &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
