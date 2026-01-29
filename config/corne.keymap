@@ -94,10 +94,10 @@
                     <&macro_press>,
                     <&kp LSHFT>,
                     <&macro_tap>, 
-                    <&kp A>;    // Просто отправляет Shift + 'A'
+                    <&kp A>,    // Просто отправляет Shift + 'A'
                     <&macro_wait_time 10>,
                     <&macro_release>,
-                    <&kp LSHFT>,   
+                    <&kp LSHFT>;   
         };
     };
 
