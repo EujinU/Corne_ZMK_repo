@@ -65,8 +65,18 @@
             compatible = "zmk,behavior-macro";
             label = "SWITCH_TO_LAYER_3";
             #binding-cells = <0>;
+//                bindings = <
+//                    &macro_tap &kp LSHFT,
+//                    &macro_tap &kp LCTRL,
+//                    &macro_wait_time 10,
+//                    &macro_release &kp LCTRL,
+//                    &macro_release &kp LSHFT,
+//                    &macro_tap &to 3
+//                     >;
+
             bindings =
                 <&macro_tap>,
+                <&kp LSHFT>,
                 <&macro_tap>,
                 <&kp LCTRL>,
                 <&macro_wait_time 10>,
@@ -81,8 +91,7 @@
         test_simple_macro: test_simple_macro {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&macro_tap>, <&kp A>;
-   // Просто отправляет 'A'
+            bindings = <&macro_tap>, <&kp A>;   // Просто отправляет 'A'
         };
     };
 
@@ -173,7 +182,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+            &trans  &trans  &switch_to_layer_3    &trans  &trans  &trans
             >;
         };
 
