@@ -58,8 +58,7 @@
         };
     };
 
-    macros {
-    };
+
 
     macros {
         switch_to_layer_3: switch_to_layer_3_macro {
