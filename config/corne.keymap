@@ -59,20 +59,10 @@
     };
 
     macros {
-        switch_to_layer_3: switch_to_layer_3_macro {
+        switch_to_layer_0: switch_to_layer_0_macro {
             compatible = "zmk,behavior-macro";
-            label = "SWITCH_TO_LAYER_3";
+            label = "SWITCH_TO_LAYER_0";
             #binding-cells = <0>;
-
-            //                bindings = <
-            //                    &macro_tap &kp LSHFT,
-            //                    &macro_tap &kp LCTRL,
-            //                    &macro_wait_time 10,
-            //                    &macro_release &kp LCTRL,
-            //                    &macro_release &kp LSHFT,
-            //                    &macro_tap &to 3
-            //                     >;
-
             bindings =
                 <&macro_press>,
                 <&kp LSHFT>,
@@ -84,7 +74,24 @@
                 <&macro_release>,
                 <&kp LSHFT>,
                 <&macro_tap>,
-                <&to 3>;
+                <&to 0>;
+
+        switch_to_layer_2: switch_to_layer_2_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SWITCH_TO_LAYER_2";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press>,
+                <&kp LSHFT>,
+                <&macro_press>,
+                <&kp LCTRL>,
+                <&macro_wait_time 10>,
+                <&macro_release>,
+                <&kp LCTRL>,
+                <&macro_release>,
+                <&kp LSHFT>,
+                <&macro_tap>,
+                <&to 2>;
         };
 
         test_simple_macro: test_simple_macro {
@@ -188,7 +195,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &switch_to_layer_3    &trans  &trans  &trans
+                        &trans  &trans  &switch_to_layer_2    &trans  &trans  &trans
             >;
         };
 
@@ -197,7 +204,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+                        &trans  &trans  &switch_to_layer_0    &trans  &trans  &trans
             >;
         };
     };
