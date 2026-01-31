@@ -17,8 +17,8 @@
 
 #define HRML(k2, k3, k4, _layer) &ht LALT k2  &hml LCTRL k3 _layer  &ht LGUI k4
 #define HRMR(k1, k2, k3, _layer) &ht RGUI k1  &hml RCTRL k2 _layer  &ht RALT k3
-#define WHRML(k2, k3, k4, _layer) &ht LALT k2  &ht LGUI k3  &hml LCTRL k4 _layer
-#define WHRMR(k1, k2, k3, _layer) &hml RCTRL k1 _layer  &ht RGUI k2  &ht RALT k3
+#define WHRML(k2,k3,k4,_layer) &ht LALT k2  &ht LGUI k3  &hml LCTRL k4  _layer
+#define WHRMR(k1,k2,k3,_layer) &hml RCTRL k1  &ht RGUI k2  &ht RALT k3  _layer
 //WHRML(S, D, F, 7)
 //WHRMR(J, K, L, 8)
 
