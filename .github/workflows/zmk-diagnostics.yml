@@ -1,0 +1,195 @@
+# .github/workflows/zmk-diagnostics.yml
+# Диагностический workflow для поиска overlay / dts / keymap / conf и grep по spi3/spi3_default
+# - выполняется вручную (workflow_dispatch) или при push
+# - использует матрицу с include (board/shield), взятую из вашего примера
+# - собирает диагностический лог и загружает его как артефакт
+#
+# Примечание:
+# - Этот workflow не делает полную установку Zephyr SDK/Toolchain по умолчанию.
+#   Он полезен, чтобы выполнить поиск файлов и собрать контекст в том же раннере.
+# - Если нужно запускать сам `west build`, добавьте шаг установки Zephyr/Zephyr SDK
+#   и ссылки на дополнительные модули. Я могу расширить workflow для этого по запросу.
+#
+name: ZMK overlay diagnostics
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_build:
+        description: 'Also attempt a west build (may require Zephyr/SDK installed)'
+        required: false
+        default: 'false'
+  push:
+    branches:
+      - '**'
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - board: nice_nano
+            shield: corne_left
+          - board: nice_nano
+            shield: corne_right
+          - board: nice_nano
+            shield: settings_reset
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install minimal tools
+        run: |
+          sudo apt-get update -y
+          # минимальный набор для поиска/парсинга (dtc не обязателен для поиска)
+          sudo apt-get install -y --no-install-recommends \
+            ca-certificates \
+            git \
+            cmake \
+            ninja-build \
+            python3-pip \
+            build-essential \
+            device-tree-compiler || true
+          python3 -m pip install --upgrade pip wheel
+          python3 -m pip install west || true
+
+      - name: Prepare /tmp/zmk-config (copy repo config if exists)
+        id: prepare_config
+        run: |
+          set -euo pipefail
+          OUT=/tmp/zmk-config
+          rm -rf "$OUT"
+          mkdir -p "$OUT"
+          # если в репозитории есть директория config — скопировать её
+          if [ -d "./config" ]; then
+            echo "Copying ./config -> /tmp/zmk-config/config"
+            mkdir -p /tmp/zmk-config
+            cp -a ./config /tmp/zmk-config/config
+          else
+            echo "No ./config directory found in repo"
+          fi
+          # если у вас в репо есть zmk/app, скопируем его тоже (для поиска)
+          if [ -d "./zmk/app" ]; then
+            echo "Copying ./zmk/app -> /tmp/zmk-config/zmk_app_copy"
+            rm -rf /tmp/zmk-config/zmk_app_copy || true
+            cp -a ./zmk/app /tmp/zmk-config/zmk_app_copy
+          else
+            echo "No ./zmk/app found in repo"
+          fi
+          echo "prepared=true" > result.txt
+        outputs:
+          prepared: ${{ steps.prepare_config.outputs.prepared || 'true' }}
+
+      - name: Run diagnostics (find / grep / show overlays)
+        id: run_diag
+        shell: bash
+        env:
+          BOARD: ${{ matrix.include.board }}
+          SHIELD: ${{ matrix.include.shield }}
+          RUN_BUILD: ${{ github.event.inputs.run_build || 'false' }}
+        run: |
+          set -euo pipefail
+          OUT="diagnostic-${BOARD}-${SHIELD}.txt"
+          echo "=== DIAGNOSTIC ===" > "$OUT"
+          echo "Job matrix: BOARD=${BOARD}, SHIELD=${SHIELD}" >> "$OUT"
+          echo "" >> "$OUT"
+
+          echo "=== date ===" >> "$OUT"
+          date -u >> "$OUT" 2>&1
+          echo "" >> "$OUT"
+
+          echo "=== repo root listing (top) ===" >> "$OUT"
+          ls -la . | sed -n '1,200p' >> "$OUT" 2>&1
+          echo "" >> "$OUT"
+
+          echo "=== find zmk/app overlays/dts in repo ===" >> "$OUT"
+          if [ -d "zmk/app" ]; then
+            find zmk/app -type f \( -name '*.overlay' -o -name '*.dts' \) -print >> "$OUT" 2>&1 || true
+          else
+            echo "zmk/app not present in repo" >> "$OUT"
+          fi
+          echo "" >> "$OUT"
+
+          echo "=== find /tmp/zmk-config (maxdepth 3) ===" >> "$OUT"
+          find /tmp/zmk-config -maxdepth 3 -type f \( -name '*.overlay' -o -name '*.dts' -o -name '*.keymap' -o -name '*.conf' \) -print >> "$OUT" 2>&1 || echo "/tmp/zmk-config not present" >> "$OUT"
+          echo "" >> "$OUT"
+
+          echo "=== ls -la /tmp/zmk-config/config ===" >> "$OUT"
+          ls -la /tmp/zmk-config/config >> "$OUT" 2>&1 || echo "/tmp/zmk-config/config not present" >> "$OUT"
+          echo "" >> "$OUT"
+
+          echo "=== Show common overlays (corne/nice_nano) if present ===" >> "$OUT"
+          sed -n '1,240p' ./zmk/app/boards/shields/corne/corne_right.overlay 2>>"$OUT" >> "$OUT" || true
+          sed -n '1,240p' ./zmk/app/boards/shields/corne/corne_left.overlay 2>>"$OUT" >> "$OUT" || true
+          sed -n '1,240p' ./zmk/app/boards/shields/corne/boards/nice_nano.overlay 2>>"$OUT" >> "$OUT" || true
+          sed -n '1,240p' ./zmk/app/boards/arm/nice_nano/nice_nano.dts 2>>"$OUT" >> "$OUT" || true
+          echo "" >> "$OUT"
+
+          echo "=== grep spi3/spi3_default in repo and /tmp/zmk-config ===" >> "$OUT"
+          # искомые шаблоны
+          grep -RIn --exclude-dir=.git 'spi3_default' . /tmp/zmk-config 2>>"$OUT" >> "$OUT" || true
+          grep -RIn --exclude-dir=.git '&spi3_default' . /tmp/zmk-config 2>>"$OUT" >> "$OUT" || true
+          grep -RIn --exclude-dir=.git 'spi3' . /tmp/zmk-config 2>>"$OUT" >> "$OUT" || true
+          echo "" >> "$OUT"
+
+          echo "=== search for zephyr.dts.pre under /tmp (first 3 matches) ===" >> "$OUT"
+          # поиск во всём /tmp, ограничим глубину, исключим ошибочные dirs
+          find /tmp -maxdepth 4 -type f -name 'zephyr.dts.pre' -print 2>/dev/null | head -n 3 >> "$OUT" || true
+          for f in $(find /tmp -maxdepth 4 -type f -name 'zephyr.dts.pre' 2>/dev/null | head -n 3 || true); do
+            echo "" >> "$OUT"
+            echo "=== content of $f (first 200 lines) ===" >> "$OUT"
+            sed -n '1,200p' "$f" >> "$OUT" 2>&1 || true
+            echo "" >> "$OUT"
+            grep -nE 'spi3_default|pin-controller|&spi3|pinctrl-0|#binding-cells' "$f" >> "$OUT" 2>&1 || true
+          done
+          echo "" >> "$OUT"
+
+          # Сохранить список всех overlay/dts/keymap/conf в репозитории и в /tmp/zmk-config
+          echo "=== all .overlay .dts .keymap .conf in repo (first 500 lines) ===" >> "$OUT"
+          find . -type f \( -name '*.overlay' -o -name '*.dts' -o -name '*.keymap' -o -name '*.conf' \) -print | sed -n '1,500p' >> "$OUT" 2>&1 || true
+          echo "" >> "$OUT"
+
+          # Сохранить diagnostic file path для вывода
+          echo "DIAGNOSTIC_FILE=${OUT}"
+          # Вывести содержимое для лога job-а
+          echo "---- BEGIN DIAGNOSTIC OUTPUT ----"
+          sed -n '1,200p' "$OUT" || true
+          echo "---- END DIAGNOSTIC OUTPUT ----"
+
+          # Сохраним в workspace для последующей загрузки
+          mkdir -p $GITHUB_WORKSPACE/diagnostics
+          cp "$OUT" "$GITHUB_WORKSPACE/diagnostics/"
+
+      - name: Optionally attempt west build (only if run_build = 'true')
+        if: ${{ github.event.inputs.run_build == 'true' }}
+        shell: bash
+        env:
+          BOARD: ${{ matrix.include.board }}
+          SHIELD: ${{ matrix.include.shield }}
+        run: |
+          set -euo pipefail
+          echo "Attempting west build for BOARD=${BOARD}, SHIELD=${SHIELD}"
+          # Пример команды (можно подправить под ваш репозиторий/путь)
+          # Запустим сборку и сохраним лог (не прерываем workflow при ошибке)
+          west build -s zmk/app -d "/tmp/tmp.${BOARD}.${SHIELD}" -b "${BOARD}" -- -DZMK_CONFIG=/tmp/zmk-config/config -DSHIELD="${SHIELD}" -DZMK_EXTRA_MODULES='/__w/Corne_ZMK_repo/Corne_ZMK_repo' 2>&1 | tee /tmp/west-build-${BOARD}-${SHIELD}.log || true
+          # Скопируем лог в workspace
+          cp /tmp/west-build-${BOARD}-${SHIELD}.log "$GITHUB_WORKSPACE/diagnostics/" || true
+          # Попробуем найти zephyr.dts.pre в директории сборки
+          if [ -f /tmp/tmp.${BOARD}.${SHIELD}/zephyr/zephyr.dts.pre ]; then
+            cp /tmp/tmp.${BOARD}.${SHIELD}/zephyr/zephyr.dts.pre "$GITHUB_WORKSPACE/diagnostics/" || true
+          fi
+
+      - name: Upload diagnostics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zmk-overlay-diagnostics-${{ matrix.include.board }}-${{ matrix.include.shield }}
+          path: diagnostics/
