@@ -21,21 +21,8 @@
 #define WHRMR(k1,k2,k3,_layer) &hml RCTRL k1 _layer  &ht RGUI k2  &ht RALT k3
 //WHRML(S, D, F, 7)
 //WHRMR(J, K, L, 8)
+//Почему то не работает
 
-
-// {
-//    behaviors {
-//        ht: hold_tap {
-//            label = "hold_tap";
-//            compatible = "zmk,behavior-hold-tap";
-//            #binding-cells = <2>;
-//            flavor = "tap-preferred";
-//            tapping-term-ms = <220>;
-//            quick-tap-ms = <150>;
-//            global-quick-tap;
-//            bindings = <&kp>, <&kp>;
-//        };
-//    };
 
 / {
     behaviors {
