@@ -58,6 +58,7 @@
             tapping-term-ms = <220>; // Синхронизировано с ht
             quick-tap-ms = <150>;
             global-quick-tap;
+            bindings = <&kp>, <&kp>;
         };
     };
 
