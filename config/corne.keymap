@@ -12,8 +12,10 @@
 // Home row mods macro
 #define HRML(k2,k3,k4) &ht LALT k2  &ht LCTRL k3  &ht LGUI k4
 #define HRMR(k1,k2,k3) &ht RGUI k1  &ht RCTRL k2  &ht RALT k3
-#define WHRML(k2,k3,k4) &ht LALT k2  &ht LGUI k3  &ht LCTRL k4
+#define WHRML(k2,k3,k4) &ht LALT k2  &ht LGUI k3  &ht 1 k4
 #define WHRMR(k1,k2,k3) &ht RCTRL k1  &ht RGUI k2  &ht RALT k3
+//#define WHRML(k2,k3,k4) &ht LALT k2  &ht LGUI k3  &ht LCTRL k4
+//#define WHRMR(k1,k2,k3) &ht RCTRL k1  &ht RGUI k2  &ht RALT k3
 
 
 //#define HRML(k2, k3, k4, _layer) &ht LALT k2  &hml LCTRL k3 _layer  &ht LGUI k4
@@ -190,7 +192,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
+                        &trans  &trans  &test_simple_macro    &trans  &trans  &trans
             >;
         };
 
