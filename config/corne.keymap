@@ -192,7 +192,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans                &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  switch_to_layer_2    &trans  &trans  &trans
+                        &trans  &trans  &macro switch_to_layer_2_macro    &trans  &trans  &trans
             >;
         };
 
