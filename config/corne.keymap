@@ -147,9 +147,9 @@
         ru_layer {
             bindings = <
 &kp ESCAPE     &kp Q      &kp W      &kp E       &kp R     &kp T             &kp Y      &kp U      &kp I      &kp O      &kp P      &kp LBKT
-&kp BACKSPACE  &kp A             LRU8(S, D, F)            &kp G             &kp H               RRU(J, K, L)          &kp SEMI   &kp SQT
+&kp BACKSPACE  &kp A             LRU8(S, D, F)             &kp G             &kp H                RRU(J, K, L)           &kp SEMI   &kp SQT
 &kp ENTER      &kp Z      &kp X      &kp C       &kp V     &kp B             &kp N      &kp M      &kp COMMA  &kp DOT    &trans     &kp FSLH
-                                     &kp TAB     &mo 4     &mo 1             &kp SPACE  &mo 5      &kp TAB
+                                        &trans  &trans     &mo 3             &trans     &trans     &trans
             >;
         };
 
@@ -158,7 +158,7 @@
 &kp ESCAPE     &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)        &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)     &kp LBRC
 &kp DEL        &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)        &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &kp LS(SEMI)  &kp LS(SQT)
 &kp ENTER      &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)        &kp LS(N)  &kp RBRC   &kp LS(COMMA)  &kp LS(DOT)  &trans  &kp QMARK
-                                  &kp TAB  &mo 4  &switch_to_layer_0        &kp SPACE  &mo 5  &kp TAB
+                                              &trans  &trans  &trans        &trans &trans  &trans
             >;
         };
 
