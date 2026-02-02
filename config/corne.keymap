@@ -109,8 +109,8 @@
         compatible = "zmk,conditional-layers";
 
         tri_layer_condition {
-            if-layers = <1 2>;
-            then-layer = <3>;
+            if-layers = <4 5>;
+            then-layer = <6>;
         };
     };
 
@@ -126,37 +126,37 @@
             //     
 
             bindings = <
-&kp ESCAPE     &kp Q  &kp W  &kp E    &kp R  &kp T        &kp Y      &kp U  &kp I   &kp O   &kp P   &trans
-&kp BACKSPACE  &kp A     WHRML(S, D, F)      &kp G        &kp H       WHRMR(J, K, L)        &trans  &trans
-&kp ENTER      &kp Z  &kp X  &kp C    &kp V  &kp B        &kp N      &kp M  &trans  &trans  &trans  &kp DOT
-                             &kp TAB  &mo 4  &mo 1        &kp SPACE  &mo 5  &kp TAB
+&kp ESCAPE     &kp Q      &kp W      &kp E       &kp R     &kp T             &kp Y      &kp U      &kp I      &kp O      &kp P      &trans
+&kp BACKSPACE  &kp A             WHRML(S, D, F)            &kp G             &kp H               WHRMR(J, K, L)          &trans     &trans
+&kp ENTER      &kp Z      &kp X      &kp C       &kp V     &kp B             &kp N      &kp M      &trans     &trans     &trans     &kp DOT
+                                     &kp TAB     &mo 4     &mo 1             &kp SPACE  &mo 5      &kp TAB
             >;
         };
 
         en_shift {
             bindings = <
 &kp ESCAPE     &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)        &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)   &trans
-&kp BACKSPACE  &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)        &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &trans      &trans
+&kp DEL        &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)        &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &trans      &trans
 &kp ENTER      &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)        &kp LS(N)  &kp LS(M)  &trans     &trans     &trans      &kp COMMA
-                                               &kp TAB  &mo 4  &mo 1        &kp SPACE  &mo 5  &kp TAB
+                                  &kp TAB  &mo 4  &switch_to_layer_2        &kp SPACE  &mo 5  &kp TAB
             >;
         };
 
         ru_layer {
             bindings = <
-&trans   &kp N1     &kp N2          &kp N3          &kp N4           &kp N5       &kp N6           &kp N7    &kp N8    &kp N9     &kp N0     &trans
-&kp DEL  &kp LC(X)  &mkp LCLK       &mmv MOVE_UP    &mkp RCLK        &kp LC(C)    &kp PRINTSCREEN  &kp LEFT  &kp UP    &kp RIGHT  &kp PG_UP  &trans
-&trans   &kp LC(Z)  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &kp LC(V)    &kp INSERT       &kp HOME  &kp DOWN  &kp END    &kp PG_DN  &trans
-                                    &trans          &trans           &trans       &trans           &trans    &trans
+&kp ESCAPE     &kp Q      &kp W      &kp E       &kp R     &kp T             &kp Y      &kp U      &kp I      &kp O      &kp P      &kp LBKT
+&kp BACKSPACE  &kp A             WHRML(S, D, F)            &kp G             &kp H               WHRMR(J, K, L)          &kp SEMI   &kp SQT
+&kp ENTER      &kp Z      &kp X      &kp C       &kp V     &kp B             &kp N      &kp M      &kp COMMA  &kp DOT    &trans     &kp FSLH
+                                     &kp TAB     &mo 4     &mo 1             &kp SPACE  &mo 5      &kp TAB
             >;
         };
 
         ru_shift {
             bindings = <
-&trans  &kp F1  &kp F2   &kp F3   &kp F4   &bt BT_SEL 0    &kp C_VOL_UP  &kp C_PREVIOUS  &kp C_PLAY_PAUSE  &kp C_NEXT  &trans  &trans
-&trans  &kp F5  &kp F6   &kp F7   &kp F8   &bt BT_SEL 1    &kp C_MUTE    &kp C_BRI_UP    &trans            &trans      &to 0   &trans
-&trans  &kp F9  &kp F10  &kp F11  &kp F12  &bt BT_CLR      &kp C_VOL_DN  &kp C_BRI_DEC   &trans            &trans      &trans  &trans
-                         &trans   &trans   &trans          &trans        &trans          &trans
+&kp ESCAPE     &kp LS(Q)  &kp LS(W)  &kp LS(E)  &kp LS(R)  &kp LS(T)        &kp LS(Y)  &kp LS(U)  &kp LS(I)  &kp LS(O)  &kp LS(P)     &kp LBRC
+&kp DEL        &kp LS(A)  &kp LS(S)  &kp LS(D)  &kp LS(F)  &kp LS(G)        &kp LS(H)  &kp LS(J)  &kp LS(K)  &kp LS(L)  &kp LS(SEMI)  &kp LS(SQT)
+&kp ENTER      &kp LS(Z)  &kp LS(X)  &kp LS(C)  &kp LS(V)  &kp LS(B)        &kp LS(N)  &kp RBRC   &kp LS(COMMA)  &kp LS(DOT)  &trans  &kp QMARK
+                                  &kp TAB  &mo 4  &switch_to_layer_0        &kp SPACE  &mo 5  &kp TAB
             >;
         };
 
@@ -183,7 +183,7 @@
 &trans  &kp F1  &kp F2   &kp F3   &kp F4   &bt BT_SEL 0    &kp C_VOL_UP  &kp C_PREVIOUS  &kp C_PLAY_PAUSE  &kp C_NEXT  &trans  &trans
 &trans  &kp F5  &kp F6   &kp F7   &kp F8   &bt BT_SEL 1    &kp C_MUTE    &kp C_BRI_UP    &trans            &trans      &to 0   &trans
 &trans  &kp F9  &kp F10  &kp F11  &kp F12  &bt BT_CLR      &kp C_VOL_DN  &kp C_BRI_DEC   &trans            &trans      &trans  &trans
-                         &trans   &trans   &trans          &trans        &trans          &trans
+                             &trans   &trans   &trans          &trans        &trans          &trans
             >;
         };
 
