@@ -21,7 +21,19 @@
 include:
   - board: nice_nano
     shield: corne_left
+    # Конфигурация дисплея для ЛЕВОЙ половины:
+    shield_config:
+      # Используйте одну из этих опций в зависимости от типа дисплея:
+      # Для стандартного OLED: 'display'   (обычно для дисплеев с надписью 'SSD1306')
+      # Для модуля Nice!View: 'nice_view'  (более современный экран)
+      # Если не уверены, начните с 'display'
+      corne_left: display
+
   - board: nice_nano
     shield: corne_right
+    # Конфигурация дисплея для ПРАВОЙ половины (главное изменение!):
+    shield_config:
+      corne_right: display  # Или 'nice_view', если у вас такой экран
+
   - board: nice_nano
     shield: settings_reset
